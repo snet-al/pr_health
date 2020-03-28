@@ -18,14 +18,14 @@ class RouteMeta {
 }
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'top-stories',
-      component: TopStories,
-      meta: new RouteMeta({ title: 'Top Stories' })
+      component: Insight,
+      meta: new RouteMeta({ title: 'Insight' })
     },
     {
       path: '/code-examples',
@@ -50,7 +50,6 @@ const router = new Router({
 
 // This callback runs before every route change, including on initial load
 router.beforeEach((to, from, next) => {
-
   const routeMeta = to.meta as RouteMeta;
   store.dispatch('topToolbar/changeTitle', routeMeta.title);
   next();
