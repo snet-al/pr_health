@@ -4,6 +4,7 @@
     app
     fixed
     grow
+    shift
     v-model="activeItem"
     color="primary"
   >
@@ -11,15 +12,17 @@
       <span>Top Stories</span>
       <v-icon>thumb_up</v-icon>
     </v-btn>
-
     <v-btn value="code" :to="{ name: 'code-examples'}">
       <span>Code Examples</span>
       <v-icon>code</v-icon>
     </v-btn>
-
     <v-btn value="favorites" :to="{ name: 'my-favorites'}">
       <span>Favorites</span>
       <v-icon>favorite</v-icon>
+    </v-btn>
+    <v-btn value="insight" :to="{ name: 'insight'}">
+      <span>Insight</span>
+      <v-icon>show_chart</v-icon>
     </v-btn>
   </v-bottom-navigation>
 

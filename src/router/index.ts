@@ -5,6 +5,7 @@ import store from '../store';
 import TopStories from '../views/TopStories.vue';
 import CodeExamples from '../views/CodeExamples.vue';
 import MyFavorites from '../views/MyFavorites.vue';
+import Insight from '../views/Insight.vue';
 
 Vue.use(Router);
 
@@ -37,6 +38,12 @@ const router = new Router({
       name: 'my-favorites',
       component: MyFavorites,
       meta: new RouteMeta({ title: 'Favorites' })
+    },
+    {
+      path: '/insight',
+      name: 'insight',
+      component: Insight,
+      meta: new RouteMeta({ title: 'Insight' })
     }
   ]
 });
