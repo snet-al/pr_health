@@ -8,7 +8,7 @@
     v-model="activeItem"
     color="primary"
   >
-    <v-btn value="top" :to="{ path: '/'}">
+    <!-- <v-btn value="top" :to="{ path: '/'}">
       <span>Top Stories</span>
       <v-icon>thumb_up</v-icon>
     </v-btn>
@@ -19,9 +19,9 @@
     <v-btn value="favorites" :to="{ name: 'my-favorites'}">
       <span>Favorites</span>
       <v-icon>favorite</v-icon>
-    </v-btn>
+    </v-btn> -->
     <v-btn value="insight" :to="{ name: 'insight'}">
-      <span>Insight</span>
+      <span>Situata</span>
       <v-icon>show_chart</v-icon>
     </v-btn>
   </v-bottom-navigation>
@@ -33,6 +33,6 @@
 
   @Component
   export default class BottomNav extends Vue {
-    activeItem: string = 'top';
+    activeItem: string = 'insight';
   }
 </script>
