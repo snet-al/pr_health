@@ -22,7 +22,7 @@ const router = new Router({
       path: '/insight',
       name: 'insight',
       component: Insight,
-      meta: new RouteMeta({ title: 'Insight' })
+      meta: new RouteMeta({ title: 'Rastet' })
     },
     {
       path: '/questions',
