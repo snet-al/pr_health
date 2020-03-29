@@ -2,10 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store';
 
-import TopStories from '../views/TopStories.vue';
-import CodeExamples from '../views/CodeExamples.vue';
-import MyFavorites from '../views/MyFavorites.vue';
 import Insight from '../views/Insight.vue';
+import Questions from '../views/Questions.vue'
 
 Vue.use(Router);
 
@@ -23,27 +21,15 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'top-stories',
-      component: Insight,
-      meta: new RouteMeta({ title: 'Insight' })
-    },
-    {
-      path: '/code-examples',
-      name: 'code-examples',
-      component: CodeExamples,
-      meta: new RouteMeta({ title: 'Code Examples' })
-    },
-    {
-      path: '/my-favorites',
-      name: 'my-favorites',
-      component: MyFavorites,
-      meta: new RouteMeta({ title: 'Favorites' })
-    },
-    {
-      path: '/insight',
       name: 'insight',
       component: Insight,
       meta: new RouteMeta({ title: 'Insight' })
+    },
+    {
+      path: '/questions',
+      name: 'questions',
+      component: Questions,
+      meta: new RouteMeta({ title: 'Pyetje' })
     }
   ]
 });

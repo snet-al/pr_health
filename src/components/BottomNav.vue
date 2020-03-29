@@ -1,5 +1,4 @@
 <template>
-
   <v-bottom-navigation
     app
     fixed
@@ -20,6 +19,11 @@
       <span>Favorites</span>
       <v-icon>favorite</v-icon>
     </v-btn> -->
+
+    <v-btn value="questions" :to="{ name: 'questions'}">
+      <span>Pyetjet</span>
+      <v-icon>question_answer</v-icon>
+    </v-btn>
     <v-btn value="insight" :to="{ name: 'insight'}">
       <span>Situata</span>
       <v-icon>show_chart</v-icon>
