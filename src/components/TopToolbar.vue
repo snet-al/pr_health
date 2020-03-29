@@ -7,7 +7,6 @@
       color="primary">
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-app-bar>
-
   </div>
 </template>
 

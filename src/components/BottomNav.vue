@@ -3,8 +3,6 @@
     app
     fixed
     grow
-    shift
-    v-model="activeItem"
     color="primary"
   >
     <!-- <v-btn value="top" :to="{ path: '/'}">
