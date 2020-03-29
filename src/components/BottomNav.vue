@@ -3,31 +3,18 @@
     app
     fixed
     grow
+    v-model="activeItem"
     color="primary"
   >
-    <!-- <v-btn value="top" :to="{ path: '/'}">
-      <span>Top Stories</span>
-      <v-icon>thumb_up</v-icon>
-    </v-btn>
-    <v-btn value="code" :to="{ name: 'code-examples'}">
-      <span>Code Examples</span>
-      <v-icon>code</v-icon>
-    </v-btn>
-    <v-btn value="favorites" :to="{ name: 'my-favorites'}">
-      <span>Favorites</span>
-      <v-icon>favorite</v-icon>
-    </v-btn> -->
-
-    <v-btn value="questions" :to="{ name: 'questions'}">
-      <span>Pyetjet</span>
-      <v-icon>question_answer</v-icon>
-    </v-btn>
-    <v-btn value="insight" :to="{ name: 'insight'}">
+    <v-btn class="btn-round"  value="insight" :to="{ name: 'insight'}">
       <span>Situata</span>
       <v-icon>show_chart</v-icon>
     </v-btn>
+    <v-btn class="btn-round" value="questions" :to="{ name: 'questions'}">
+      <span>Pyetjet</span>
+      <v-icon>question_answer</v-icon>
+    </v-btn>
   </v-bottom-navigation>
-
 </template>
 
 <script lang="ts">
