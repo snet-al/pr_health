@@ -1,75 +1,207 @@
 <template>
+  <div>
   <v-layout
       column
       justify-center
       align-center
       class="pr-2 pl-2 pt-4">
-    <v-flex
+      <v-tabs
+          fixed-tabs
+          slider-color="white"
+          class="mb-4"
+          v-model="tabs"
+          fixed
+      >
+        <v-tabs-slider></v-tabs-slider>
+        <v-tab
+            color="primary"
+        >
+          <span>Rastet ne Shqiperi</span>
+          <v-icon>place</v-icon>
+        </v-tab>
+
+        <v-tab>
+          <span class="pr-1">Rastet ne Bote</span>
+          <v-icon>mdi-earth</v-icon>
+        </v-tab>
+      </v-tabs>
+    <v-tabs-items v-model="tabs">
+      <v-tab-item>
+          <v-card min-width="500">
+              <v-list subheader>
+
+                <v-list-item>
+                  <v-list-item-avatar>
+                    <v-icon
+                        class="blue white--text"
+                    >place</v-icon>
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{{this.countries[84].country}}</v-list-item-title>
+                    <v-list-item-subtitle>Data: {{this.countries[84].day}}</v-list-item-subtitle>
+                  </v-list-item-content>
+
+                  <v-list-item-action>
+                    <v-btn icon>
+                      <v-icon color="grey lighten-1">mdi-information</v-icon>
+                    </v-btn>
+                  </v-list-item-action>
+                </v-list-item>
+                <v-divider></v-divider>
+
+                <v-list-group
+                    no-action
+                    sub-group
+                >
+                  <template v-slot:activator>
+                    <v-list-item-content>
+                      <v-list-item-title>Te Dhenat</v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+
+                  <v-list-item>
+                    <v-list-item-title>Raste Te Reja </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>{{ this.countries[84].cases.new }}</span>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>Raste Aktive </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>{{ this.countries[84].cases.active }}</span>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>Raste Kritike </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>{{ this.countries[84].cases.critical }}</span>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-list-item class="success" style="color: white !important;">
+                    <v-list-item-title>Raste Te Permiresuar </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>{{ this.countries[84].cases.recovered }}</span>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>Raste Te Total </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>{{ this.countries[84].cases.total }}</span>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>Vdekje Te reja </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>  {{ this.countries[84].deaths.new === null ? '0' : this.countries[84].deaths.new}}  </span>
+                    </v-list-item-icon>
+                  </v-list-item>
+                  <v-list-item class="black" style="color:white !important;">
+                    <v-list-item-title>Vdekje Total </v-list-item-title>
+                    <v-list-item-icon>
+                      <span>{{ this.countries[84].deaths.total }}</span>
+                    </v-list-item-icon>
+                  </v-list-item>
+                </v-list-group>
+              </v-list>
+          </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-flex
         xs12
         sm8
         md6/>
-    <v-expansion-panels
-        :inset="true"
-        class="mb-6"
-        focusable>
-      <v-expansion-panel
-          v-for="(country, index) in this.countries"
-          :key="index">
-        <v-expansion-panel-header>
-          {{ country.country }}</v-expansion-panel-header>
-        <v-expansion-panel-content
-            class="mt-5 text-lg">
-          <v-list subheader>
-            <v-subheader>Përditsuar në Datën: {{ country.day }}</v-subheader>
+        <v-expansion-panels
+            :inset="true"
+            class="mb-6"
+            focusable>
+          <v-expansion-panel
+              v-for="(country, index) in this.countries"
+              :key="index">
+            <v-expansion-panel-header>
+              {{ country.country }}</v-expansion-panel-header>
+            <v-expansion-panel-content
+                class="mt-5 text-lg">
+              <v-list subheader>
+                <v-subheader>Përditsuar në Datën: {{ country.day }}</v-subheader>
 
-            <v-list>
-              <v-list-group no-action>
-                <template v-slot:activator>
-                  <v-list-item-content>
-                    <v-list-item-title>Rastet</v-list-item-title>
-                  </v-list-item-content>
-                </template>
-                  <v-list-item-content class="new-cases">
-                    <v-list-item-title><span style="float: left; padding-left: 30px">Të Reja</span> <span style="float: right; padding-right: 30px">{{ country.cases.new }} </span> </v-list-item-title>
-                  </v-list-item-content>
+                <v-list>
+                  <v-list-group no-action>
+                    <template v-slot:activator>
+                      <v-list-item-content>
+                        <v-list-item-title>Rastet</v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <v-list-item-content class="new-cases">
+                      <v-list-item-title><span class="float-left pl-2">Të Reja</span> <span class="float-right pr-2">{{ country.cases.new }} </span> </v-list-item-title>
+                    </v-list-item-content>
 
-                  <v-list-item-content class="active-cases">
-                    <v-list-item-title><span style="float: left; padding-left: 30px">Aktive</span> <span style="float: right; padding-right: 30px">{{ country.cases.active }} </span> </v-list-item-title>
-                  </v-list-item-content>
+                    <v-list-item-content class="active-cases">
+                      <v-list-item-title><span class="float-left pl-2">Aktive</span> <span class="float-right pr-2">{{ country.cases.active }} </span> </v-list-item-title>
+                    </v-list-item-content>
 
-                <v-list-item-content class="critical-cases">
-                  <v-list-item-title><span style="float: left; padding-left: 30px">Gjendje Kritike</span> <span style="float: right; padding-right: 30px">{{ country.cases.critical }} </span> </v-list-item-title>
-                </v-list-item-content>
+                    <v-list-item-content class="critical-cases">
+                      <v-list-item-title><span class="float-left pl-2">Gjendje Kritike</span> <span class="float-right pr-2">{{ country.cases.critical }} </span> </v-list-item-title>
+                    </v-list-item-content>
 
-                <v-list-item-content class="recovered-cases">
-                  <v-list-item-title><span style="float: left; padding-left: 30px">Të Shëruar</span> <span style="float: right; padding-right: 30px">{{ country.cases.recovered }} </span> </v-list-item-title>
-                </v-list-item-content>
+                    <v-list-item-content class="recovered-cases">
+                      <v-list-item-title><span class="float-left pl-2">Të Shëruar</span> <span class="float-right pr-2">{{ country.cases.recovered }} </span> </v-list-item-title>
+                    </v-list-item-content>
 
-                <v-list-item-content class="total-cases">
-                  <v-list-item-title><span style="float: left; padding-left: 30px">Totali</span> <span style="float: right; padding-right: 30px">{{ country.cases.total }} </span> </v-list-item-title>
-                </v-list-item-content>
-              </v-list-group>
+                    <v-list-item-content class="total-cases">
+                      <v-list-item-title><span class="float-left pl-2">Totali</span> <span class="float-right pr-2">{{ country.cases.total }} </span> </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-group>
 
-              <v-list-group no-action>
-                <template v-slot:activator>
-                  <v-list-item-content>
-                    <v-list-item-title>Vdekje</v-list-item-title>
-                  </v-list-item-content>
-                </template>
-                <v-list-item-content class="new-cases">
-                  <v-list-item-title><span style="float: left; padding-left: 30px">Të Reja</span> <span style="float: right; padding-right: 30px">{{ country.deaths.new === null ? '0' : country.deaths.new}} </span> </v-list-item-title>
-                </v-list-item-content>
+                  <v-list-group no-action>
+                    <template v-slot:activator>
+                      <v-list-item-content>
+                        <v-list-item-title>Vdekje</v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <v-list-item-content class="new-cases">
+                      <v-list-item-title><span class="float-left pl-2">Të Reja</span> <span class="float-right pr-2">{{ country.deaths.new === null ? '0' : country.deaths.new}} </span> </v-list-item-title>
+                    </v-list-item-content>
 
-                <v-list-item-content class="new-deaths">
-                  <v-list-item-title><span style="float: left; padding-left: 30px">Totali</span> <span style="float: right; padding-right: 30px">{{ country.deaths.total }} </span> </v-list-item-title>
-                </v-list-item-content>
-              </v-list-group>
-            </v-list>
-          </v-list>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+                    <v-list-item-content class="new-deaths">
+                      <v-list-item-title><span class="float-left pl-2">Totali</span> <span class="float-right pr-2">{{ country.deaths.total }} </span> </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-group>
+                </v-list>
+              </v-list>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+
+
+      </v-tab-item>
+    </v-tabs-items>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </v-layout>
+  </div>
 </template>
 
 <script lang="ts">
@@ -79,6 +211,7 @@
   @Component
   export default class Insight extends Vue {
     countries:any = []
+    tabs: number = null
 
     mounted() {
       axios({
@@ -96,7 +229,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .new-cases {
     background-color: #ffff7e;
     color: black;

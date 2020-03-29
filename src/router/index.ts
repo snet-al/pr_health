@@ -17,10 +17,9 @@ class RouteMeta {
 
 const router = new Router({
   mode: 'hash',
-  base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/insight',
       name: 'insight',
       component: Insight,
       meta: new RouteMeta({ title: 'Insight' })
