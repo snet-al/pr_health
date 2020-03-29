@@ -6,30 +6,27 @@
       align-center
       class="pr-2 pl-2 pt-4">
       <v-tabs
-          fixed-tabs
-          slider-color="white"
-          class="mb-4"
-          v-model="tabs"
-          fixed
+        slider-color="white"
+        class="mb-4"
+        centered="centered"
+        grow="grow"
+        v-model="tabs"
       >
-        <v-tabs-slider></v-tabs-slider>
-        <v-tab
-            color="primary"
-        >
-          <span>Rastet ne Shqiperi</span>
+        <v-tabs-slider>
+        </v-tabs-slider>
+        <v-tab>
+          <span class="mr-2">Shqiperi</span>
           <v-icon>place</v-icon>
         </v-tab>
-
         <v-tab>
-          <span class="pr-1">Rastet ne Bote</span>
+          <span class="mr-2">Bote</span>
           <v-icon>mdi-earth</v-icon>
         </v-tab>
       </v-tabs>
     <v-tabs-items v-model="tabs">
       <v-tab-item>
-          <v-card min-width="500">
+          <v-card>
               <v-list subheader>
-
                 <v-list-item>
                   <v-list-item-avatar>
                     <v-icon
@@ -177,29 +174,8 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-
-
       </v-tab-item>
     </v-tabs-items>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </v-layout>
   </div>
 </template>
@@ -211,7 +187,7 @@
   @Component
   export default class Insight extends Vue {
     countries:any = []
-    tabs: number = null
+    tabs: number = 0
 
     mounted() {
       axios({
@@ -229,7 +205,7 @@
     }
   }
 </script>
-<style scoped>
+<style>
   .new-cases {
     background-color: #ffff7e;
     color: black;
@@ -258,5 +234,5 @@
     /*margin-bottom: 5px;*/
     /*margin-top: 10px;*/
     /*border-radius: 5px;*/
-  /*}*/
+  /*}*/  
 </style>

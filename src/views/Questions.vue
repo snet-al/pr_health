@@ -21,9 +21,8 @@
               :step="n"
           >
             <v-card
-                class="mb-12"
-                color="grey lighten-1"
-                height="200px"
+              elevation="0"
+                class="mb-5"
             ><h4>Keni levizur jashte shqiperise ?</h4></v-card>
             <v-radio-group v-model="row" row style="justify-content: center">
               <v-radio @click="nextStep(n)" label="PO" value="Po" class="mr-5"></v-radio>
