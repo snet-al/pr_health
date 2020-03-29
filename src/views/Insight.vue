@@ -25,7 +25,9 @@
       </v-tabs>
     <v-tabs-items v-model="tabs">
       <v-tab-item>
-          <v-card>
+          <v-card xs12
+        sm8
+        md6>
               <v-list subheader>
                 <v-list-item>
                   <v-list-item-avatar>
@@ -48,7 +50,7 @@
                 <v-divider></v-divider>
 
                 <v-list-group
-                    no-action
+                  :value="true"
                     sub-group
                 >
                   <template v-slot:activator>

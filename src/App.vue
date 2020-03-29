@@ -27,3 +27,8 @@
   export default class extends Vue {
   }
 </script>
+<style>
+.v-btn:not(.v-btn--round).v-size--default {
+  height: auto !important;
+}
+</style>

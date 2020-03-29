@@ -19,6 +19,11 @@ const router = new Router({
   mode: 'hash',
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: Insight,
+      meta: new RouteMeta({ title: 'Rastet' })
+    },{
       path: '/insight',
       name: 'insight',
       component: Insight,
