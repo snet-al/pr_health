@@ -14,6 +14,10 @@
       <span>Pyetjet</span>
       <v-icon>question_answer</v-icon>
     </v-btn>
+    <v-btn class="btn-round" value="permission" :to="{ name: 'permission'}">
+      <span>Merr Leje</span>
+      <v-icon>person_pin</v-icon>
+    </v-btn>
   </v-bottom-navigation>
 </template>
 

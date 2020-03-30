@@ -25,89 +25,110 @@
       </v-tabs>
     <v-tabs-items v-model="tabs">
       <v-tab-item>
-          <v-card xs12
-        sm8
-        md6>
-              <v-list subheader>
-                <v-list-item>
-                  <v-list-item-avatar>
-                    <v-icon
-                        class="blue white--text"
-                    >place</v-icon>
-                  </v-list-item-avatar>
+        <v-card
+          xs12
+          sm8
+          md6
+          class="mb-4">
+            <v-list subheader>
+              <v-list-item>
+                <v-list-item-avatar>
+                  <v-icon
+                      class="blue white--text"
+                  >place</v-icon>
+                </v-list-item-avatar>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{this.countries[84].country}}</v-list-item-title>
-                    <v-list-item-subtitle>Data: {{this.countries[84].day}}</v-list-item-subtitle>
-                  </v-list-item-content>
+                <v-list-item-content>
+                  <v-list-item-title>{{this.countries[84].country}}</v-list-item-title>
+                  <v-list-item-subtitle class="darken-3">Perditesuar ne Daten: {{this.countries[84].day}}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider></v-divider>
 
-                  <v-list-item-action>
-                    <v-btn icon>
-                      <v-icon color="grey lighten-1">mdi-information</v-icon>
-                    </v-btn>
-                  </v-list-item-action>
-                </v-list-item>
-                <v-divider></v-divider>
 
-                <v-list-group
-                  :value="true"
-                    sub-group
-                >
-                  <template v-slot:activator>
-                    <v-list-item-content>
-                      <v-list-item-title>Te Dhenat</v-list-item-title>
-                    </v-list-item-content>
-                  </template>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon color="indigo">mdi-information</v-icon>
+                </v-list-item-icon>
 
-                  <v-list-item>
-                    <v-list-item-title>Raste Te Reja </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>{{ this.countries[84].cases.new }}</span>
-                    </v-list-item-icon>
-                  </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Raste Te Reja</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{this.countries[84].cases.new}}</span>
+                </v-list-item-icon>
+              </v-list-item>
 
-                  <v-list-item>
-                    <v-list-item-title>Raste Aktive </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>{{ this.countries[84].cases.active }}</span>
-                    </v-list-item-icon>
-                  </v-list-item>
+              <v-list-item>
+                <v-list-item-action></v-list-item-action>
 
-                  <v-list-item>
-                    <v-list-item-title>Raste Kritike </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>{{ this.countries[84].cases.critical }}</span>
-                    </v-list-item-icon>
-                  </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Raste Aktive</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{this.countries[84].cases.active}}</span>
+                </v-list-item-icon>
+              </v-list-item>
 
-                  <v-list-item class="success" style="color: white !important;">
-                    <v-list-item-title>Raste Te Permiresuar </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>{{ this.countries[84].cases.recovered }}</span>
-                    </v-list-item-icon>
-                  </v-list-item>
+              <v-list-item>
+                <v-list-item-action></v-list-item-action>
 
-                  <v-list-item>
-                    <v-list-item-title>Raste Te Total </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>{{ this.countries[84].cases.total }}</span>
-                    </v-list-item-icon>
-                  </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Raste Kritike</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{this.countries[84].cases.critical}}</span>
+                </v-list-item-icon>
+              </v-list-item>
 
-                  <v-list-item>
-                    <v-list-item-title>Vdekje Te reja </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>  {{ this.countries[84].deaths.new === null ? '0' : this.countries[84].deaths.new}}  </span>
-                    </v-list-item-icon>
-                  </v-list-item>
-                  <v-list-item class="black" style="color:white !important;">
-                    <v-list-item-title>Vdekje Total </v-list-item-title>
-                    <v-list-item-icon>
-                      <span>{{ this.countries[84].deaths.total }}</span>
-                    </v-list-item-icon>
-                  </v-list-item>
-                </v-list-group>
-              </v-list>
+              <v-list-item>
+                <v-list-item-action></v-list-item-action>
+
+                <v-list-item-content>
+                  <v-list-item-title>Raste Te Permiresuar</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{this.countries[84].cases.recovered}}</span>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-action></v-list-item-action>
+
+                <v-list-item-content>
+                  <v-list-item-title>Totali</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{this.countries[84].cases.total}}</span>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <v-divider inset></v-divider>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon color="indigo">mdi-information</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Vdekje Te Reja</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{ this.countries[84].deaths.new === null ? '0' : this.countries[84].deaths.new}}</span>
+                </v-list-item-icon>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-action></v-list-item-action>
+
+                <v-list-item-content>
+                  <v-list-item-title>Vdekje Total</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{this.countries[84].deaths.total}}</span>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list>
           </v-card>
       </v-tab-item>
       <v-tab-item>

@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store';
 
-import Insight from '../views/Insight.vue';
+import Insight from '../views/Insight.vue'
 import Questions from '../views/Questions.vue'
+import Permission from '../views/Permission.vue'
 
 Vue.use(Router);
 
@@ -34,7 +35,13 @@ const router = new Router({
       name: 'questions',
       component: Questions,
       meta: new RouteMeta({ title: 'Pyetje' })
-    }
+    },
+	{
+        path: '/permission',
+        name: 'permission',
+        component: Permission,
+        meta: new RouteMeta({ title: 'Leje' })
+	}
   ]
 });
 
