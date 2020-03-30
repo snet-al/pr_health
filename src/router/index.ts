@@ -1,17 +1,18 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import store from '../store';
+import Vue from 'vue'
+import Router from 'vue-router'
+import store from '../store'
 
-import Insight from '../views/Insight.vue';
+import Insight from '../views/Insight.vue'
 import Questions from '../views/Questions.vue'
+import Permission from '../views/Permission.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
 class RouteMeta {
-  title: string;
+  title: string
 
-  constructor({title}: { title: string }) {
-    this.title = title;
+  constructor({ title }: { title: string }) {
+    this.title = title
   }
 }
 
@@ -22,27 +23,34 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Insight,
-      meta: new RouteMeta({ title: 'Rastet' })
-    },{
+      meta: new RouteMeta({ title: 'Rastet' }),
+    },
+    {
       path: '/insight',
       name: 'insight',
       component: Insight,
-      meta: new RouteMeta({ title: 'Rastet' })
+      meta: new RouteMeta({ title: 'Rastet' }),
     },
     {
       path: '/questions',
       name: 'questions',
       component: Questions,
-      meta: new RouteMeta({ title: 'Pyetje' })
-    }
-  ]
-});
+      meta: new RouteMeta({ title: 'Pyetje' }),
+    },
+    {
+      path: '/permission',
+      name: 'permission',
+      component: Permission,
+      meta: new RouteMeta({ title: 'Leje' }),
+    },
+  ],
+})
 
 // This callback runs before every route change, including on initial load
 router.beforeEach((to, from, next) => {
-  const routeMeta = to.meta as RouteMeta;
-  store.dispatch('topToolbar/changeTitle', routeMeta.title);
-  next();
-});
+  const routeMeta = to.meta as RouteMeta
+  store.dispatch('topToolbar/changeTitle', routeMeta.title)
+  next()
+})
 
-export default router;
+export default router
