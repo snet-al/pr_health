@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer
-        app
-        fixed
-        v-model="showMenu"
-
-    >
+    <v-navigation-drawer app fixed v-model="showMenu">
       <v-list dense>
         <v-list-item @click="doNothing">
           <v-list-item-action>
@@ -25,11 +20,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      app
-      fixed
-      dark
-      color="primary">
+    <v-app-bar app fixed dark color="primary">
       <!--<v-app-bar-nav-icon @click.stop="toggleMenu"></v-app-bar-nav-icon>-->
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-app-bar>
@@ -37,18 +28,16 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { Getter } from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 
-  @Component
-  export default class TopToolbar extends Vue {
-    @Getter("title", { namespace: 'topToolbar' }) title!: string
-    showMenu: boolean = false;
-    toggleMenu(): void {
-      this.showMenu = !this.showMenu;
-    }
-	doNothing(): void {
-	}
-
+@Component
+export default class TopToolbar extends Vue {
+  @Getter('title', { namespace: 'topToolbar' }) title!: string
+  showMenu: boolean = false
+  toggleMenu(): void {
+    this.showMenu = !this.showMenu
   }
+  doNothing(): void {}
+}
 </script>
