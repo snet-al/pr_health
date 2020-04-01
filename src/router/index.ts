@@ -5,6 +5,7 @@ import store from '../store'
 import Insight from '../views/Insight.vue'
 import Questions from '../views/Questions.vue'
 import Permission from '../views/Permission.vue'
+import Information from '../views/Information.vue'
 
 Vue.use(Router)
 
@@ -43,6 +44,12 @@ const router = new Router({
       component: Permission,
       meta: new RouteMeta({ title: 'Leje' }),
     },
+	{
+        path: '/information',
+        name: 'information',
+        component: Information,
+        meta: new RouteMeta({ title: 'Informacion' }),
+	},
   ],
 })
 

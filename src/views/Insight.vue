@@ -10,30 +10,28 @@
       >
         <v-tabs-slider> </v-tabs-slider>
         <v-tab>
-          <span class="mr-2">Shqiperi</span>
+          <span class="mr-2">Shqipëri </span>
           <v-icon>place</v-icon>
         </v-tab>
         <v-tab>
-          <span class="mr-2">Bote</span>
+          <span class="mr-2">Botë</span>
           <v-icon>mdi-earth</v-icon>
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
         <v-tab-item>
+          <v-flex xs12 sm8 md6 />
           <v-card xs12 sm8 md6 class="mb-4">
             <v-list subheader>
-              <v-list-item>
-                <v-list-item-avatar>
-                  <v-icon class="blue white--text">place</v-icon>
-                </v-list-item-avatar>
+              <v-list-item class="primary" style="color: white !important;">
+                <!--<v-list-item-avatar>-->
+                  <!--<v-icon class="blue white&#45;&#45;text">place</v-icon>-->
+                <!--</v-list-item-avatar>-->
                 <v-list-item-content>
-                  <v-list-item-title>{{
-                    this.countries[84].country
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle class="darken-3"
-                    >Perditesuar ne Daten:
-                    {{ this.countries[84].day }}</v-list-item-subtitle
-                  >
+                  <v-list-item-title>
+                    Përditësuar në Datën:
+                    <b>{{ this.countries[84].day.split("-").reverse().join('/') }}</b>
+                  </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-divider></v-divider>
@@ -140,24 +138,28 @@
               <v-expansion-panel-content class="mt-5 text-lg">
                 <v-list subheader>
                   <v-subheader
-                    >Përditsuar në Datën: {{ country.day }}</v-subheader
+                    >Përditësuar në Datën:
+                    <b> {{ country.day.split("-").reverse().join('/') }}</b></v-subheader
                   >
-
                   <v-list>
                     <v-list-group no-action>
                       <template v-slot:activator>
                         <v-list-item-content>
-                          <v-list-item-title>Rastet</v-list-item-title>
+                          <v-list-item-title>
+                            <v-icon color="green">mdi-information</v-icon>
+                            Rastet</v-list-item-title>
                         </v-list-item-content>
                       </template>
                       <v-list-item-content class="new-cases">
                         <v-list-item-title
-                          ><span class="float-left pl-2">Të Reja</span>
+                          ><span class="float-left pl-2">
+                          Të Reja</span>
                           <span class="float-right pr-2"
                             >{{ country.cases.new }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
+                      <v-divider></v-divider>
 
                       <v-list-item-content class="active-cases">
                         <v-list-item-title
@@ -185,6 +187,8 @@
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
+                      <v-divider></v-divider>
+
 
                       <v-list-item-content class="total-cases">
                         <v-list-item-title
@@ -199,7 +203,9 @@
                     <v-list-group no-action>
                       <template v-slot:activator>
                         <v-list-item-content>
-                          <v-list-item-title>Vdekje</v-list-item-title>
+                          <v-list-item-title>
+                            <v-icon color="red">mdi-information</v-icon>
+                            Vdekje</v-list-item-title>
                         </v-list-item-content>
                       </template>
                       <v-list-item-content class="new-cases">
@@ -214,7 +220,7 @@
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
-
+                      <v-divider></v-divider>
                       <v-list-item-content class="new-deaths">
                         <v-list-item-title
                           ><span class="float-left pl-2">Totali</span>
@@ -261,28 +267,28 @@ export default class Insight extends Vue {
 }
 </script>
 <style>
-.new-cases {
-  background-color: #ffff7e;
-  color: black;
-  border-radius: 5px;
-}
+/*.new-cases {*/
+  /*background-color: #ffff7e;*/
+  /*color: black;*/
+  /*border-radius: 5px;*/
+/*}*/
 /*.critical-cases {*/
 /*background: red;*/
 /*color: white;*/
 /*border-radius: 5px;*/
 /*}*/
-.recovered-cases {
-  background: limegreen;
-  color: white;
-  border-radius: 5px;
-  margin-top: 5px;
-}
-.new-deaths {
-  background: black;
-  color: white;
-  border-radius: 5px;
-  margin-top: 10px;
-}
+/*.recovered-cases {*/
+  /*background: limegreen;*/
+  /*color: white;*/
+  /*border-radius: 5px;*/
+  /*margin-top: 5px;*/
+/*}*/
+/*.new-deaths {*/
+  /*background: black;*/
+  /*color: white;*/
+  /*border-radius: 5px;*/
+  /*margin-top: 10px;*/
+/*}*/
 /*.active-cases {*/
 /*background: darkblue;*/
 /*color: white;*/
@@ -290,4 +296,8 @@ export default class Insight extends Vue {
 /*margin-top: 10px;*/
 /*border-radius: 5px;*/
 /*}*/
+
+  .v-list-item {
+    color: black !important;
+  }
 </style>
