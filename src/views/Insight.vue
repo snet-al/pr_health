@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout column justify-center align-center class="pr-2 pl-2 pt-4">
+    <v-layout column justify-center align-center class="pr-3 pl-2 pt-3">
       <v-tabs
         slider-color="white"
         class="mb-4"
@@ -10,18 +10,22 @@
       >
         <v-tabs-slider> </v-tabs-slider>
         <v-tab>
-          <span class="mr-2">Shqipëri </span>
+          <span class="pr-1">Shqipëri</span>
           <v-icon>place</v-icon>
         </v-tab>
         <v-tab>
-          <span class="mr-2">Botë</span>
+          <span class="pr-1">Kosovë</span>
+          <v-icon>place</v-icon>
+        </v-tab>
+        <v-tab>
+          <span class="pr-1">Botë</span>
           <v-icon>mdi-earth</v-icon>
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
         <v-tab-item>
           <v-flex xs12 sm8 md6 />
-          <v-card xs12 sm8 md6 class="mb-4">
+          <v-card xs12 sm8 md6 class="mb-4" width="800">
             <v-list subheader>
               <v-list-item class="primary" style="color: white !important;">
                 <!--<v-list-item-avatar>-->
@@ -86,7 +90,7 @@
                 <v-list-item-action></v-list-item-action>
 
                 <v-list-item-content>
-                  <v-list-item-title>Totali</v-list-item-title>
+                  <v-list-item-title>Raste Total</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
                   <span>{{ this.countries[84].cases.total }}</span>
@@ -125,6 +129,92 @@
             </v-list>
           </v-card>
         </v-tab-item>
+
+
+
+
+
+
+
+
+
+        <v-tab-item>
+          <v-flex xs12 sm8 md6 />
+          <v-card xs12 sm8 md6 class="mb-4" width="800">
+            <v-list subheader>
+              <v-list-item class="primary" style="color: white !important;">
+                <!--<v-list-item-avatar>-->
+                <!--<v-icon class="blue white&#45;&#45;text">place</v-icon>-->
+                <!--</v-list-item-avatar>-->
+                <v-list-item-content>
+                  <v-list-item-title>
+                    Përditësuar në Datën:
+                    <b>{{ this.kosovaData.lastUpdatedAtApify.slice(0,10).split('-').reverse().join('/') }}</b>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon color="indigo">mdi-information</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Raste Total</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{ this.kosovaData.infected }}</span>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-divider></v-divider>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon color="indigo">mdi-information</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Raste Të Përmirësuara</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{ this.kosovaData.recovered }}</span>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon color="indigo">mdi-information</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Vdekje Total</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-icon>
+                  <span>{{ this.kosovaData.deceased }}</span>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-tab-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <v-tab-item>
           <v-flex xs12 sm8 md6 />
           <v-expansion-panels :inset="true" class="mb-6" focusable>
@@ -247,6 +337,7 @@ import axios from 'axios'
 @Component
 export default class Insight extends Vue {
   countries: any = []
+  kosovaData: object = {}
   tabs: number = 0
 
   mounted() {
@@ -263,6 +354,17 @@ export default class Insight extends Vue {
       .catch(error => {
         console.log(error)
       })
+
+	axios({
+    method: 'GET',
+    url: 'https://api.apify.com/v2/key-value-stores/C10heVVVE8yBd1YvF/records/LATEST?disableRedirect=true.',
+  })
+  .then(response => {
+    this.kosovaData = response.data
+  })
+  .catch(error => {
+    console.log(error)
+  })
   }
 }
 </script>
