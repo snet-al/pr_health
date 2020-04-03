@@ -402,4 +402,8 @@ export default class Insight extends Vue {
   .v-list-item {
     color: black !important;
   }
+
+.v-tabs-bar.v-tabs-bar--is-mobile:not(.v-tabs-bar--show-arrows):not(.v-slide-group--has-affixes) .v-slide-group__prev {
+  display: none !important;
+}
 </style>
