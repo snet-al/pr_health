@@ -166,13 +166,10 @@
                   <span>{{ this.kosovaData.infected }}</span>
                 </v-list-item-icon>
               </v-list-item>
-              <v-divider></v-divider>
+              <v-divider inset></v-divider>
 
               <v-list-item>
-                <v-list-item-icon>
-                  <v-icon color="indigo">mdi-information</v-icon>
-                </v-list-item-icon>
-
+                <v-list-item-action></v-list-item-action>
                 <v-list-item-content>
                   <v-list-item-title>Raste Të Përmirësuara</v-list-item-title>
                 </v-list-item-content>
@@ -180,12 +177,9 @@
                   <span>{{ this.kosovaData.recovered }}</span>
                 </v-list-item-icon>
               </v-list-item>
-              <v-divider></v-divider>
+              <v-divider inset></v-divider>
               <v-list-item>
-                <v-list-item-icon>
-                  <v-icon color="indigo">mdi-information</v-icon>
-                </v-list-item-icon>
-
+                <v-list-item-action></v-list-item-action>
                 <v-list-item-content>
                   <v-list-item-title>Vdekje Total</v-list-item-title>
                 </v-list-item-content>
