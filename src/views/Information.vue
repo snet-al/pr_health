@@ -34,7 +34,7 @@
           color: 'purple darken-1',
           icon: 'place',
           question: 'Nga vijnë koronaviruset ?',
-          info: 'Koronavirusi qarkullon në kafshë, dhe disa prej koronaviruseve kanë aftësinë të transmetohen nga kafshët tek njeriu. Lakuriqet e Nates konsiderohen si mbajtes natyrorë të këtyre viruseve, por gjithashtu disa specie të tjera të kafshëve njihen gjithashtu se veprojnë si burime.'
+          info: 'Koronavirusi qarkullon në kafshë, dhe disa prej koronaviruseve kanë aftësinë të transmetohen nga kafshët tek njeriu. Lakuriqet e nates konsiderohen si mbajtes natyrorë të këtyre viruseve, por gjithashtu disa specie të tjera të kafshëve njihen gjithashtu se veprojnë si burime.'
         },
         {
           color: 'blue-grey darken-2',
