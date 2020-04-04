@@ -128,6 +128,14 @@
               </v-list-item>
             </v-list>
           </v-card>
+
+          <line-chart
+              v-if="this.loaded"
+              :chartdata="chartData"
+              :options="options"/>
+
+
+
         </v-tab-item>
 
 
@@ -328,11 +336,19 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
-@Component
+import LineChart from '../components/Chart'
+@Component({
+  components: {LineChart}
+})
 export default class Insight extends Vue {
   countries: any = []
   kosovaData: object = {}
   tabs: number = 0
+  loaded = false
+  chartData = null
+  options = {
+    responsive: true
+  }
 
   mounted() {
     axios({
@@ -359,6 +375,33 @@ export default class Insight extends Vue {
   .catch(error => {
     console.log(error)
   })
+
+
+	axios({
+    method: 'GET',
+    url: `https://covid-193.p.rapidapi.com/history?country=Albania`,
+    headers: {
+      'X-RapidAPI-Key': '8616b8c3b6msh6ae43974091fe26p116c54jsne81f0516627d',
+    },
+  })
+    .then(response => {
+      response.data.response.map(chart => {
+        this.chartData = chart
+
+      })
+      this.chartData.labels = response.data.response.map((item) => {
+        return item.day
+      })
+      this.chartData.dataset = response.data.response.map(item => {
+        return item.cases.total
+      })
+
+      this.loaded = true
+    })
+    .catch(error => {
+    console.log(error)
+    })
+
   }
 }
 </script>
