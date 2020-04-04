@@ -29,12 +29,19 @@
             <v-list subheader>
               <v-list-item class="primary" style="color: white !important;">
                 <!--<v-list-item-avatar>-->
-                  <!--<v-icon class="blue white&#45;&#45;text">place</v-icon>-->
+                <!--<v-icon class="blue white&#45;&#45;text">place</v-icon>-->
                 <!--</v-list-item-avatar>-->
                 <v-list-item-content>
                   <v-list-item-title>
                     Përditësuar në Datën:
-                    <b>{{ this.countries[84].day.split("-").reverse().join('/') }}</b>
+                    <b>{{
+                      this.countries[84]
+                        ? this.countries[84].day
+                            .split('-')
+                            .reverse()
+                            .join('/')
+                        : ''
+                    }}</b>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -49,7 +56,9 @@
                   <v-list-item-title>Raste Te Reja</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
-                  <span>{{ this.countries[84].cases.new }}</span>
+                  <span>{{
+                    this.countries[84] ? this.countries[84].cases.new : ''
+                  }}</span>
                 </v-list-item-icon>
               </v-list-item>
 
@@ -60,7 +69,9 @@
                   <v-list-item-title>Raste Aktive</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
-                  <span>{{ this.countries[84].cases.active }}</span>
+                  <span>{{
+                    this.countries[84] ? this.countries[84].cases.active : ''
+                  }}</span>
                 </v-list-item-icon>
               </v-list-item>
 
@@ -71,7 +82,9 @@
                   <v-list-item-title>Raste Kritike</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
-                  <span>{{ this.countries[84].cases.critical }}</span>
+                  <span>{{
+                    this.countries[84] ? this.countries[84].cases.critical : ''
+                  }}</span>
                 </v-list-item-icon>
               </v-list-item>
 
@@ -82,7 +95,9 @@
                   <v-list-item-title>Raste Te Permiresuar</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
-                  <span>{{ this.countries[84].cases.recovered }}</span>
+                  <span>{{
+                    this.countries[84] ? this.countries[84].cases.recovered : ''
+                  }}</span>
                 </v-list-item-icon>
               </v-list-item>
 
@@ -93,7 +108,9 @@
                   <v-list-item-title>Raste Total</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
-                  <span>{{ this.countries[84].cases.total }}</span>
+                  <span>{{
+                    this.countries[84] ? this.countries[84].cases.total : ''
+                  }}</span>
                 </v-list-item-icon>
               </v-list-item>
 
@@ -109,6 +126,7 @@
                 </v-list-item-content>
                 <v-list-item-icon>
                   <span>{{
+                    !this.countries[84] ||
                     this.countries[84].deaths.new === null
                       ? '0'
                       : this.countries[84].deaths.new
@@ -123,21 +141,22 @@
                   <v-list-item-title>Vdekje Total</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon>
-                  <span>{{ this.countries[84].deaths.total }}</span>
+                  <span>{{
+                    this.countries[84] ? this.countries[84].deaths.total : ''
+                  }}</span>
                 </v-list-item-icon>
               </v-list-item>
             </v-list>
           </v-card>
+
+          <line-chart
+            v-if="this.loaded"
+            :chart-data="chartData"
+            :options="options"
+            :styles="myStyles"
+            class="mb-6"
+          />
         </v-tab-item>
-
-
-
-
-
-
-
-
-
         <v-tab-item>
           <v-flex xs12 sm8 md6 />
           <v-card xs12 sm8 md6 class="mb-4" width="800">
@@ -149,7 +168,15 @@
                 <v-list-item-content>
                   <v-list-item-title>
                     Përditësuar në Datën:
-                    <b>{{ this.kosovaData.lastUpdatedAtApify.slice(0,10).split('-').reverse().join('/') }}</b>
+                    <b>{{
+                      this.kosovaData.lastUpdatedAtApify
+                        ? this.kosovaData.lastUpdatedAtApify
+                            .slice(0, 10)
+                            .split('-')
+                            .reverse()
+                            .join('/')
+                        : ''
+                    }}</b>
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -190,40 +217,30 @@
             </v-list>
           </v-card>
         </v-tab-item>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <v-tab-item>
           <v-flex xs12 sm8 md6 />
           <v-expansion-panels :inset="true" class="mb-6" focusable>
             <v-expansion-panel
               v-for="(country, index) in this.countries"
-              :key="index"
+              :key="index + '_' + country.id"
             >
               <v-expansion-panel-header>
-                {{ country.country }}</v-expansion-panel-header
+                {{ country.country || '' }}</v-expansion-panel-header
               >
               <v-expansion-panel-content class="mt-5 text-lg">
                 <v-list subheader>
                   <v-subheader
                     >Përditësuar në Datën:
-                    <b> {{ country.day.split("-").reverse().join('/') }}</b></v-subheader
+                    <b>
+                      {{
+                        country
+                          ? country.day
+                              .split('-')
+                              .reverse()
+                              .join('/')
+                          : ''
+                      }}</b
+                    ></v-subheader
                   >
                   <v-list>
                     <v-list-group no-action>
@@ -231,15 +248,17 @@
                         <v-list-item-content>
                           <v-list-item-title>
                             <v-icon color="green">mdi-information</v-icon>
-                            Rastet</v-list-item-title>
+                            Rastet</v-list-item-title
+                          >
                         </v-list-item-content>
                       </template>
                       <v-list-item-content class="new-cases">
                         <v-list-item-title
-                          ><span class="float-left pl-2">
-                          Të Reja</span>
-                          <span class="float-right pr-2"
-                            >{{ country.cases.new }}
+                          ><span class="float-left pl-2"> Të Reja</span>
+                          <span class="float-right pr-2">
+                            {{
+                              country && country.cases ? country.cases.new : ''
+                            }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -248,8 +267,12 @@
                       <v-list-item-content class="active-cases">
                         <v-list-item-title
                           ><span class="float-left pl-2">Aktive</span>
-                          <span class="float-right pr-2"
-                            >{{ country.cases.active }}
+                          <span class="float-right pr-2">
+                            {{
+                              country && country.cases
+                                ? country.cases.active
+                                : ''
+                            }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -257,8 +280,12 @@
                       <v-list-item-content class="critical-cases">
                         <v-list-item-title
                           ><span class="float-left pl-2">Gjendje Kritike</span>
-                          <span class="float-right pr-2"
-                            >{{ country.cases.critical }}
+                          <span class="float-right pr-2">
+                            {{
+                              country && country.cases
+                                ? country.cases.critical
+                                : ''
+                            }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -266,19 +293,26 @@
                       <v-list-item-content class="recovered-cases">
                         <v-list-item-title
                           ><span class="float-left pl-2">Të Shëruar</span>
-                          <span class="float-right pr-2"
-                            >{{ country.cases.recovered }}
+                          <span class="float-right pr-2">
+                            {{
+                              country && country.cases
+                                ? country.cases.recovered
+                                : ''
+                            }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
                       <v-divider></v-divider>
 
-
                       <v-list-item-content class="total-cases">
                         <v-list-item-title
                           ><span class="float-left pl-2">Totali</span>
-                          <span class="float-right pr-2"
-                            >{{ country.cases.total }}
+                          <span class="float-right pr-2">
+                            {{
+                              country && country.cases
+                                ? country.cases.total
+                                : ''
+                            }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -289,7 +323,8 @@
                         <v-list-item-content>
                           <v-list-item-title>
                             <v-icon color="red">mdi-information</v-icon>
-                            Vdekje</v-list-item-title>
+                            Vdekje</v-list-item-title
+                          >
                         </v-list-item-content>
                       </template>
                       <v-list-item-content class="new-cases">
@@ -297,7 +332,7 @@
                           ><span class="float-left pl-2">Të Reja</span>
                           <span class="float-right pr-2"
                             >{{
-                              country.deaths.new === null
+                              !country || country.deaths.new === null
                                 ? '0'
                                 : country.deaths.new
                             }}
@@ -308,8 +343,8 @@
                       <v-list-item-content class="new-deaths">
                         <v-list-item-title
                           ><span class="float-left pl-2">Totali</span>
-                          <span class="float-right pr-2"
-                            >{{ country.deaths.total }}
+                          <span class="float-right pr-2">
+                            {{ country ? country.deaths.total : '' }}
                           </span>
                         </v-list-item-title>
                       </v-list-item-content>
@@ -328,11 +363,29 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
-@Component
+import LineChart from '../components/Chart.vue'
+@Component({
+  components: { LineChart },
+})
 export default class Insight extends Vue {
   countries: any = []
   kosovaData: object = {}
   tabs: number = 0
+  loaded = false
+  chartData = {
+    labels: Array(),
+    datasets: Array(),
+  }
+  options = {
+    responsive: true,
+  }
+
+
+	get myStyles () {
+    return {
+      position: 'relative'
+    }
+  }
 
   mounted() {
     axios({
@@ -349,24 +402,72 @@ export default class Insight extends Vue {
         console.log(error)
       })
 
-	axios({
-    method: 'GET',
-    url: 'https://api.apify.com/v2/key-value-stores/C10heVVVE8yBd1YvF/records/LATEST?disableRedirect=true.',
-  })
-  .then(response => {
-    this.kosovaData = response.data
-  })
-  .catch(error => {
-    console.log(error)
-  })
+    axios({
+      method: 'GET',
+      url:
+        'https://api.apify.com/v2/key-value-stores/C10heVVVE8yBd1YvF/records/LATEST?disableRedirect=true.',
+    })
+      .then(response => {
+        this.kosovaData = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+    axios({
+      method: 'GET',
+      url: `https://covid-193.p.rapidapi.com/history?country=Albania`,
+      headers: {
+        'X-RapidAPI-Key': '8616b8c3b6msh6ae43974091fe26p116c54jsne81f0516627d',
+      },
+    })
+      .then(response => {
+        let result = response.data.response
+
+        this.chartData.labels = result.reverse().map((item: any) => {
+          return (
+            item.time.substr(8, 2) +
+            '/' +
+            item.time.substr(5, 2) +
+            ' ' +
+            item.time.substr(11, 5)
+          )
+        })
+
+        let data = Array()
+
+        this.chartData.datasets.push({
+          label: ['Raste Total'],
+          data: result.map((el: any) => el.cases.total),
+        })
+        this.chartData.datasets.push({
+          label: ['Raste te Reja'],
+          backgroundColor: '#f8463d',
+          data: result.map((el: any) => el.cases.new),
+        })
+        this.chartData.datasets.push({
+          label: ['Vdekje te reja'],
+          backgroundColor: '#4771cb',
+          data: result.map((el: any) => el.deaths.new),
+        })
+        this.chartData.datasets.sort().push({
+          label: ['Vdekje total'],
+          backgroundColor: '#fdf309',
+          data: result.map((el: any) => el.deaths.total),
+        })
+        this.loaded = true
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 }
 </script>
 <style>
 /*.new-cases {*/
-  /*background-color: #ffff7e;*/
-  /*color: black;*/
-  /*border-radius: 5px;*/
+/*background-color: #ffff7e;*/
+/*color: black;*/
+/*border-radius: 5px;*/
 /*}*/
 /*.critical-cases {*/
 /*background: red;*/
@@ -374,16 +475,16 @@ export default class Insight extends Vue {
 /*border-radius: 5px;*/
 /*}*/
 /*.recovered-cases {*/
-  /*background: limegreen;*/
-  /*color: white;*/
-  /*border-radius: 5px;*/
-  /*margin-top: 5px;*/
+/*background: limegreen;*/
+/*color: white;*/
+/*border-radius: 5px;*/
+/*margin-top: 5px;*/
 /*}*/
 /*.new-deaths {*/
-  /*background: black;*/
-  /*color: white;*/
-  /*border-radius: 5px;*/
-  /*margin-top: 10px;*/
+/*background: black;*/
+/*color: white;*/
+/*border-radius: 5px;*/
+/*margin-top: 10px;*/
 /*}*/
 /*.active-cases {*/
 /*background: darkblue;*/
@@ -393,11 +494,12 @@ export default class Insight extends Vue {
 /*border-radius: 5px;*/
 /*}*/
 
-  .v-list-item {
-    color: black !important;
-  }
+.v-list-item {
+  color: black !important;
+}
 
-.v-tabs-bar.v-tabs-bar--is-mobile:not(.v-tabs-bar--show-arrows):not(.v-slide-group--has-affixes) .v-slide-group__prev {
+.v-tabs-bar.v-tabs-bar--is-mobile:not(.v-tabs-bar--show-arrows):not(.v-slide-group--has-affixes)
+  .v-slide-group__prev {
   display: none !important;
 }
 </style>
