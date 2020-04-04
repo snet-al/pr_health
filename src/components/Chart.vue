@@ -3,25 +3,26 @@
 
   export default {
     mixins: [mixins.reactiveProp],
-    data: () => ({
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    }),
     extends: Line,
     props: {
-      chartdata: {
-        type: Object,
-        default: null
-      },
       options: {
         type: Object,
-        default: null
+        default: () => {
+            return {
+              responsive: true,
+              maintainAspectRatio: false,
+            }
+        }
       }
     },
     mounted () {
-      this.renderChart(this.chartdata, this.options)
+      console.log('insi',this.chartData)
+      this.renderChart(this.chartData, this.options)
+    },
+    watch: {
+      chartData(val) {
+        console.log('insi',val)
+      }
     }
   }
 
