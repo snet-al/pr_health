@@ -217,8 +217,47 @@
               </v-list-item>
             </v-list>
           </v-card>
+
+          <line-chart
+              v-if="this.loaded"
+              :chart-data="kosovoHistoric"
+              :options="options"
+              :styles="myStyles"
+              class="mb-6"
+          />
+
+
+
         </v-tab-item>
         <v-tab-item>
+<!--<div class="d-block text-center">-->
+          <!--<v-chip-->
+              <!--color="pink"-->
+              <!--label-->
+              <!--text-color="white"-->
+              <!--class="mb-2"-->
+          <!--&gt;-->
+
+            <!--Raste Total:   {{ this.countries[212].cases.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}-->
+          <!--</v-chip>-->
+          <!--<v-chip-->
+              <!--color="green"-->
+              <!--label-->
+              <!--class="mb-2 ml-2 mr-2"-->
+              <!--text-color="white"-->
+          <!--&gt;-->
+            <!--Te Permiresuar:   {{ this.countries[212].cases.recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}-->
+          <!--</v-chip>-->
+          <!--<v-chip-->
+              <!--color="black"-->
+              <!--label-->
+              <!--class="mb-2"-->
+              <!--text-color="white"-->
+          <!--&gt;-->
+            <!--Vdekje Total: {{ this.countries[212].deaths.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}-->
+          <!--</v-chip>-->
+<!--</div>-->
+
           <v-text-field dense v-model="search" placeholder="Kerko" solo appendIcon="search" />
           <v-card flat width="1000">
           <v-expansion-panels :inset="true" class="mb-6" focusable>
@@ -380,6 +419,10 @@ export default class Insight extends Vue {
     labels: Array(),
     datasets: Array(),
   }
+  kosovoHistoric = {
+    labels: Array(),
+    datasets: Array(),
+  }
   search: string = ''
   options = {
     responsive: true,
@@ -400,113 +443,126 @@ export default class Insight extends Vue {
   }
 
   mounted() {
-    axios({
-      method: 'GET',
-      url: 'https://covid-193.p.rapidapi.com/statistics',
-      headers: {
-        'X-RapidAPI-Key': '8616b8c3b6msh6ae43974091fe26p116c54jsne81f0516627d',
-      },
+	axios({
+    method: 'GET',
+    url: 'https://covid-193.p.rapidapi.com/statistics',
+    headers: {
+    'X-RapidAPI-Key': '8616b8c3b6msh6ae43974091fe26p116c54jsne81f0516627d',
+    },
+  })
+    .then(response => {
+    this.countries = response.data.response
+    this.countriesFiltered = this.countries
     })
-      .then(response => {
-        this.countries = response.data.response
-        this.countriesFiltered = this.countries
-      })
-      .catch(error => {
-        console.log(error)
-      })
-
-    axios({
-      method: 'GET',
-      url:
-        'https://api.apify.com/v2/key-value-stores/C10heVVVE8yBd1YvF/records/LATEST?disableRedirect=true.',
+    .catch(error => {
+    console.log(error)
     })
-      .then(response => {
-        this.kosovaData = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
 
-    axios({
-      method: 'GET',
-      url: `https://covid-193.p.rapidapi.com/history?country=Albania`,
-      headers: {
-        'X-RapidAPI-Key': '8616b8c3b6msh6ae43974091fe26p116c54jsne81f0516627d',
-      },
+  axios({
+    method: 'GET',
+    url:
+    'https://api.apify.com/v2/key-value-stores/C10heVVVE8yBd1YvF/records/LATEST?disableRedirect=true.',
+  })
+    .then(response => {
+    this.kosovaData = response.data
     })
-      .then(response => {
-        let result = response.data.response
+    .catch(error => {
+    console.log(error)
+    })
 
-        this.chartData.labels = result.reverse().map((item: any) => {
-          return (
-            item.time.substr(8, 2) +
-            '/' +
-            item.time.substr(5, 2) +
-            ' ' +
-            item.time.substr(11, 5)
-          )
-        })
+	axios({
+    method: 'GET',
+    url: `https://covid-193.p.rapidapi.com/history?country=Albania`,
+    headers: {
+    'X-RapidAPI-Key': '8616b8c3b6msh6ae43974091fe26p116c54jsne81f0516627d',
+    },
+  })
+    .then(response => {
+    let result = response.data.response
 
-        let data = Array()
+    this.chartData.labels = result.reverse().map((item: any) => {
+      return (
+      item.time.substr(8, 2) +
+      '/' +
+      item.time.substr(5, 2) +
+      ' ' +
+      item.time.substr(11, 5)
+      )
+    })
 
-        this.chartData.datasets.push({
-          label: ['Raste Total'],
-          data: result.map((el: any) => el.cases.total),
-        })
-        this.chartData.datasets.push({
-          label: ['Raste te Reja'],
-          backgroundColor: '#f8463d',
-          data: result.map((el: any) => el.cases.new),
-        })
-        this.chartData.datasets.push({
-          label: ['Vdekje te reja'],
-          backgroundColor: '#4771cb',
-          data: result.map((el: any) => el.deaths.new),
-        })
-        this.chartData.datasets.sort().push({
-          label: ['Vdekje total'],
-          backgroundColor: '#fdf309',
-          data: result.map((el: any) => el.deaths.total),
-        })
-        this.loaded = true
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    let data = Array()
+
+    this.chartData.datasets.push({
+      label: ['Raste Total'],
+      data: result.map((el: any) => el.cases.total),
+    })
+    this.chartData.datasets.push({
+      label: ['Raste te Reja'],
+      backgroundColor: '#f8463d',
+      data: result.map((el: any) => el.cases.new),
+    })
+    this.chartData.datasets.push({
+      label: ['Vdekje te reja'],
+      backgroundColor: '#4771cb',
+      data: result.map((el: any) => el.deaths.new),
+    })
+    this.chartData.datasets.sort().push({
+      label: ['Vdekje total'],
+      backgroundColor: '#fdf309',
+      data: result.map((el: any) => el.deaths.total),
+    })
+    this.loaded = true
+    })
+    .catch(error => {
+    console.log(error)
+    })
+
+  axios({
+  method: 'GET',
+  url:
+    'https://api.apify.com/v2/datasets/ruoBcTzhMpN6SaeS2/items?format=json',
+  })
+	.then(response => {
+    let kosovoResults = response.data
+
+    this.kosovoHistoric.labels = kosovoResults.map((item: any) => {
+    return (
+      item.lastUpdatedAtApify.substr(8, 2) +
+      '/' +
+      item.lastUpdatedAtApify.substr(5, 2) +
+      ' ' +
+      item.lastUpdatedAtApify.substr(11, 5)
+    )
+    })
+
+    let data = Array()
+
+    this.kosovoHistoric.datasets.push({
+      label: ['Raste Total'],
+      data: kosovoResults.map((el: any) => el.identifiedCases || el.infected),
+    })
+    this.kosovoHistoric.datasets.push({
+      label: ['Raste te Permiresuar'],
+      backgroundColor: '#1cf829',
+      data: kosovoResults.map((el: any) => el.recovered),
+    })
+    this.kosovoHistoric.datasets.push({
+      label: ['Vdekje te reja'],
+      backgroundColor: '#4771cb',
+      data: kosovoResults.map((el: any) => el.deceased),
+    })
+    this.loaded = true
+  })
+  .catch(error => {
+    console.log(error)
+  })
   }
 }
+
+
+
 </script>
 <style>
-/*.new-cases {*/
-/*background-color: #ffff7e;*/
-/*color: black;*/
-/*border-radius: 5px;*/
-/*}*/
-/*.critical-cases {*/
-/*background: red;*/
-/*color: white;*/
-/*border-radius: 5px;*/
-/*}*/
-/*.recovered-cases {*/
-/*background: limegreen;*/
-/*color: white;*/
-/*border-radius: 5px;*/
-/*margin-top: 5px;*/
-/*}*/
-/*.new-deaths {*/
-/*background: black;*/
-/*color: white;*/
-/*border-radius: 5px;*/
-/*margin-top: 10px;*/
-/*}*/
-/*.active-cases {*/
-/*background: darkblue;*/
-/*color: white;*/
-/*margin-bottom: 5px;*/
-/*margin-top: 10px;*/
-/*border-radius: 5px;*/
-/*}*/
-
 .v-list-item {
   color: black !important;
 }
