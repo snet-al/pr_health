@@ -4,7 +4,7 @@ import store from '../store'
 
 import Insight from '../views/Insight.vue'
 import Questions from '../views/Questions.vue'
-import Permission from '../views/Permission.vue'
+import symptoms from '../views/Permission.vue'
 import Information from '../views/Information.vue'
 
 Vue.use(Router)
@@ -39,10 +39,10 @@ const router = new Router({
       meta: new RouteMeta({ title: 'Pyetje' }),
     },
     {
-      path: '/permission',
-      name: 'permission',
-      component: Permission,
-      meta: new RouteMeta({ title: 'Leje' }),
+      path: '/symptoms',
+      name: 'symptoms',
+      component: symptoms,
+      meta: new RouteMeta({ title: 'Simptomat' }),
     },
 	{
         path: '/information',
