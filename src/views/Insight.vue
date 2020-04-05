@@ -154,6 +154,8 @@
             v-if="this.loaded"
             :chart-data="chartData"
             :options="options"
+            :styles="myStyles"
+            class="mb-6"
           />
         </v-tab-item>
         <v-tab-item full-width>
@@ -380,7 +382,6 @@ export default class Insight extends Vue {
   options = {
     responsive: true,
   }
-
   @Watch('search')
   onChange(value: any, oldValue: any) {
     if (value.indexOf(':') === 0) {
@@ -389,6 +390,11 @@ export default class Insight extends Vue {
     this.countriesFiltered = this.countries.filter((item: any) => {
       return item.country.toLowerCase().indexOf(value.toLowerCase()) > -1
     })
+
+	get myStyles () {
+    return {
+      position: 'relative'
+    }
   }
 
   mounted() {
@@ -429,7 +435,7 @@ export default class Insight extends Vue {
       .then(response => {
         let result = response.data.response
 
-        this.chartData.labels = result.map((item: any) => {
+        this.chartData.labels = result.reverse().map((item: any) => {
           return (
             item.time.substr(8, 2) +
             '/' +
@@ -442,22 +448,22 @@ export default class Insight extends Vue {
         let data = Array()
 
         this.chartData.datasets.push({
-          label: ['Rastet'],
+          label: ['Raste Total'],
           data: result.map((el: any) => el.cases.total),
         })
         this.chartData.datasets.push({
-          label: ['Te reja'],
-          backgroundColor: '#f87979',
+          label: ['Raste te Reja'],
+          backgroundColor: '#f8463d',
           data: result.map((el: any) => el.cases.new),
         })
         this.chartData.datasets.push({
           label: ['Vdekje te reja'],
-          backgroundColor: '#888888',
+          backgroundColor: '#4771cb',
           data: result.map((el: any) => el.deaths.new),
         })
-        this.chartData.datasets.push({
+        this.chartData.datasets.sort().push({
           label: ['Vdekje total'],
-          backgroundColor: '#888888',
+          backgroundColor: '#fdf309',
           data: result.map((el: any) => el.deaths.total),
         })
         this.loaded = true
