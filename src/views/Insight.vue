@@ -23,8 +23,9 @@
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tabs">
-        <v-tab-item>
+        <v-tab-item full-width>
           <v-flex xs12 sm8 md6 />
+          <v-col cols="12" sm="6" md="3"> </v-col>
           <v-card xs12 sm8 md6 class="mb-4" width="800">
             <v-list subheader>
               <v-list-item class="primary" style="color: white !important;">
@@ -155,7 +156,7 @@
             :options="options"
           />
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item full-width>
           <v-flex xs12 sm8 md6 />
           <v-card xs12 sm8 md6 class="mb-4" width="800">
             <v-list subheader>
@@ -215,11 +216,11 @@
             </v-list>
           </v-card>
         </v-tab-item>
-        <v-tab-item>
-          <v-flex xs12 sm8 md6 />
+        <v-tab-item full-width>
+          <v-text-field dense v-model="search" placeholder="Kerko" solo />
           <v-expansion-panels :inset="true" class="mb-6" focusable>
             <v-expansion-panel
-              v-for="(country, index) in this.countries"
+              v-for="(country, index) in this.countriesFiltered"
               :key="index + '_' + country.id"
             >
               <v-expansion-panel-header>
@@ -359,7 +360,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import axios from 'axios'
 import LineChart from '../components/Chart.vue'
 @Component({
@@ -367,6 +368,7 @@ import LineChart from '../components/Chart.vue'
 })
 export default class Insight extends Vue {
   countries: any = []
+  countriesFiltered: any = []
   kosovaData: object = {}
   tabs: number = 0
   loaded = false
@@ -374,8 +376,19 @@ export default class Insight extends Vue {
     labels: Array(),
     datasets: Array(),
   }
+  search: string = ''
   options = {
     responsive: true,
+  }
+
+  @Watch('search')
+  onChange(value: any, oldValue: any) {
+    if (value.indexOf(':') === 0) {
+      // sorting
+    }
+    this.countriesFiltered = this.countries.filter((item: any) => {
+      return item.country.toLowerCase().indexOf(value.toLowerCase()) > -1
+    })
   }
 
   mounted() {
@@ -388,6 +401,7 @@ export default class Insight extends Vue {
     })
       .then(response => {
         this.countries = response.data.response
+        this.countriesFiltered = this.countries
       })
       .catch(error => {
         console.log(error)
