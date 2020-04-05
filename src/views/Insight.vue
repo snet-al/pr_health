@@ -161,7 +161,7 @@
         <v-tab-item full-width>
           <v-flex xs12 sm8 md6 />
           <v-card xs12 sm8 md6 class="mb-4" width="800">
-            <v-list subheader>
+            <v-list subheader :expand="true">
               <v-list-item class="primary" style="color: white !important;">
                 <!--<v-list-item-avatar>-->
                 <!--<v-icon class="blue white&#45;&#45;text">place</v-icon>-->
@@ -218,8 +218,9 @@
             </v-list>
           </v-card>
         </v-tab-item>
-        <v-tab-item full-width>
-          <v-text-field dense v-model="search" placeholder="Kerko" solo />
+        <v-tab-item>
+          <v-text-field dense v-model="search" placeholder="Kerko" solo appendIcon="search" />
+          <v-card flat width="1000">
           <v-expansion-panels :inset="true" class="mb-6" focusable>
             <v-expansion-panel
               v-for="(country, index) in this.countriesFiltered"
@@ -244,7 +245,7 @@
                     ></v-subheader
                   >
                   <v-list>
-                    <v-list-group no-action>
+                    <v-list-group no-action value="true">
                       <template v-slot:activator>
                         <v-list-item-content>
                           <v-list-item-title>
@@ -319,7 +320,7 @@
                       </v-list-item-content>
                     </v-list-group>
 
-                    <v-list-group no-action>
+                    <v-list-group no-action value="true">
                       <template v-slot:activator>
                         <v-list-item-content>
                           <v-list-item-title>
@@ -355,6 +356,7 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
+          </v-card>
         </v-tab-item>
       </v-tabs-items>
     </v-layout>
@@ -390,7 +392,7 @@ export default class Insight extends Vue {
     this.countriesFiltered = this.countries.filter((item: any) => {
       return item.country.toLowerCase().indexOf(value.toLowerCase()) > -1
     })
-
+  }
 	get myStyles () {
     return {
       position: 'relative'
