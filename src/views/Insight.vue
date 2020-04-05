@@ -502,6 +502,11 @@ export default class Insight extends Vue {
       data: result.map((el: any) => el.cases.new),
     })
     this.chartData.datasets.push({
+      label: ['Raste te Permiresuar'],
+      backgroundColor: '#00bd11',
+      data: result.map((el: any) => el.cases.recovered),
+    })
+    this.chartData.datasets.push({
       label: ['Vdekje te reja'],
       backgroundColor: '#4771cb',
       data: result.map((el: any) => el.deaths.new),

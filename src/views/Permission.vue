@@ -8,7 +8,6 @@
               label="Emri"
               outlined
               prepend-inner-icon="perm_identity"
-              clearable
               required
               autoFocus="true"
               dense
@@ -22,8 +21,6 @@
                 outlined
                 dense
                 prepend-inner-icon="featured_play_list"
-                clearable
-                required
                 v-model="personalId"
                 :error-messages="personalIdErrors"
                 @input="$v.personalId.$touch()"
@@ -36,7 +33,6 @@
               :error-messages="phoneNumberErrors"
               type="number"
               prepend-inner-icon="phone"
-              clearable
               required
               v-model="phoneNumber"
               @input="$v.phoneNumber.$touch()"
@@ -50,7 +46,6 @@
               :error-messages="temperatureErrors"
               type="number"
               prepend-inner-icon="mdi-temperature-celsius"
-              clearable
               required
               v-model="temperature"
               @input="$v.temperature.$touch()"
@@ -138,15 +133,15 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, maxLength, between } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import axios from 'axios'
 export default {
   mixins: [validationMixin],
   validations: {
     username: {required, maxLength: maxLength(15)},
-    personalId: { required, maxLength: maxLength(10) },
+    personalId: { maxLength: maxLength(10) },
     phoneNumber: { required, maxLength: maxLength(10) },
-    temperature: {required, maxLength: maxLength(2), between: between(36, 42)},
+    temperature: {required},
     cough: {required},
     breathing: {required},
     pain: { required },
@@ -169,7 +164,7 @@ export default {
         {text: 'Nuk kam kolle', value: 0},
         {text: 'Kolle te lehte', value: 1},
         {text: 'Kolle mesatar', value: 2},
-        {text: 'Kolle te Rendruar', value: 3}
+        {text: 'Kolle te Renduar', value: 3}
       ],
       breathNivel: [
         {text: 'Normal', value: 0},
@@ -187,7 +182,7 @@ export default {
       ],
       feverNivel: [
         {text: 'Jo', value: 0},
-        {text: 'Po, shpresh me temperature mbi 38.5 grade', value: 1},
+        {text: 'Po, shpesh me temperature mbi 38.5 °C', value: 1},
         {text: 'Po, vetem me temperature te larte ', value: 2},
       ]
     }
@@ -211,8 +206,6 @@ export default {
       }
       !this.$v.personalId.maxLength &&
         errors.push('Nr kartes duhet te jete 10 karaktere')
-      !this.$v.personalId.required &&
-        errors.push('Nr i kartes eshte i detyrueshem')
       return errors
     },
     phoneNumberErrors() {
@@ -231,12 +224,8 @@ export default {
       if (!this.$v.temperature.$dirty) {
         return errors
       }
-      !this.$v.temperature.maxLength &&
-      errors.push('Temperatura duhet te jete 2 shifror!')
       !this.$v.temperature.required &&
       errors.push('Vendosja e temperatures eshte e detyrueshme!')
-      !this.$v.temperature.between &&
-      errors.push('Temperatura duhet te jete midis 36 dhe 42')
 
       return errors
     },
@@ -314,4 +303,3 @@ export default {
 </script>
 
 <style scoped></style>
-aa931mt
