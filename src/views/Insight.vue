@@ -157,6 +157,9 @@
             :styles="myStyles"
             class="mb-6"
           />
+
+
+          <iframe title="Koronavirusi në Shqipëri " aria-label="Albania counties Symbol map" id="datawrapper-chart-0Kdu6" src="//datawrapper.dwcdn.net/0Kdu6/" scrolling="no" style="width: 0; min-width: 100% !important; border: none;" height="600" frameborder="0"></iframe>
         </v-tab-item>
         <v-tab-item full-width>
           <v-flex xs12 sm8 md6 />
